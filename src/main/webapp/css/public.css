@@ -1,0 +1,273 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap');
+
+body {
+	margin:0;
+	padding:0;
+    -webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
+	background-color:#F3EEE7;
+}
+
+#fade {
+	opacity:0;
+	transition-duration: 1250ms;
+    transition-property: opacity;
+}
+
+.container {
+	width:100%;
+}
+
+.header {
+	z-index:8;
+	position:fixed;
+	width:100%;
+	top:0px;
+	display:flex;
+	height:80px;
+	line-height:80px;
+	background-color:#FFFCF9;
+	transition: all 0.7s;
+}
+
+#header-left {
+	float:left;
+	width:30%;
+	margin-left:10px;
+	font-weight:800;
+}
+
+#header-left>a{
+	float:left;
+	padding-left:25px;
+}
+
+#header-center {
+	width:40%;
+	font-size:60px;
+	text-align:center;
+	font-family: "Cormorant Garamond", serif;
+  	font-weight: 400;
+  	transition: all 0.7s;
+}
+
+#header-center > a{
+	color:#6A3D17;
+}
+
+
+#header-right{
+	font-family: "Bona Nova SC", serif;
+	float:right;
+	width:30%;
+	margin-right:25px;
+	font-size:2.3vw;
+}
+
+#header-right a {
+	color:#6A3D17;
+	transition: all 0.7s;
+}
+
+#header-right a:hover {
+	color:#999680;
+}
+
+.hrd {
+	float:right;
+	padding: 0px 0px 10px 30px;
+}
+
+#header-logout,#header-mypage{
+	width:105px;
+	padding:0;
+	float:right;
+	text-align:right;
+}
+#hdr{
+	position:absolute;
+	font-size:13px;
+	right:60px;
+	top:-25px;
+	height:0;
+}
+
+a {
+	text-decoration:none;
+	color:black;
+}
+
+ul {
+	margin:0;
+	padding:0;
+	list-style-type:none;
+}
+
+.nav {
+	z-index:10;
+	position:fixed;
+	width:100%;
+	top:80px;
+	display:flex;
+	height:50px;
+	line-height:50px;
+	font-size:20px;
+	text-align:center;
+	background-color:#FFFAF2;
+	border-top: 1px solid #F1EDE6;
+	border-bottom: 1px solid #F1EDE6;
+	font-family: "Tinos", serif;
+	font-weight: 400;
+	font-style: normal;
+	transition: all .7s;
+	justify-content:center;
+}
+
+.nav > li {
+	float:left;
+	width:16%;
+	transition: all 0.6s;
+	cursor:pointer;
+	color:#593415;
+}
+
+.nav > li:hover {
+	background-color:#EBE6DE;
+	color:#9E5B22;
+}
+
+.footer {
+	white-space:nowrap;
+	padding:0;
+	z-index:8;
+	height: 120px;
+	text-align: center;
+	background-color:#FFFCF9;
+	font-size:20px;
+	color: grey;
+	display:flex;
+}
+
+.footer a {
+    color: grey;
+}
+
+#footer-logo{
+	float:left;
+	width:30%;
+	font-family: "Cormorant Garamond", serif;
+	font-size:19px;
+}
+
+#footer-contact{
+	padding:0;
+	font-size:18px;
+	float:left;
+	width:40%;
+}
+
+#footer-logo > ul {
+	padding:0;
+	margin:0;
+	padding-top:25px;
+}
+#footer-logo > ul > li {
+	text-align:left;
+	padding-left:30px;
+}
+
+#footer-contact > p {
+	padding:0;
+	line-height:6px;
+	font-family: "Cormorant Garamond", serif;
+}
+
+#footer-contact > img {
+	margin-left:7px;
+	margin-right:7px;
+}
+
+#footer-copyright{
+	line-height:120px;
+	float:left;
+	width:30%;
+	font-size:20px;
+	font-family: "Cormorant Garamond", serif;
+}
+
+
+.star-rating { width:88px;text-align:left; }
+.star-rating,.star-rating span { text-align:left;display:inline-block; height:16.5px; overflow:hidden; background:url('../img/public/star.png')no-repeat; }
+.star-rating span{ text-align:left;background-position:left bottom; line-height:0; vertical-align:top;}
+
+.notice-wrap{
+	margin-top:300px;
+	width:100%;
+	font-family:'Gowun Batang';
+	color:#6A3D17;
+}
+
+.notice-img{
+	text-align:center;
+}
+
+.notice-msg{
+	text-align:center;
+	font-size: 30px;
+	margin-top:30px
+}
+
+#mini-msg{
+	font-size:18px;
+	margin-top:13px;
+	text-align:center;
+}
+
+
+@media (max-width:720px){
+    #header-left{
+    	width:30%;
+    }
+    #header-right{
+		margin-right:20px;
+		width:50%;
+		font-size:2vw;
+	}
+	#header-center {
+		font-size:40px;
+		width:20%;
+	}
+	.nav > li {
+		font-size:14px;
+	}
+	#header-logout,#header-mypage{
+		width:80px;
+		padding:0;
+		float:right;
+		text-align:right;
+	}
+}
+
+@media (min-width:720px) {
+	#header-right{
+		font-size:1.8vw;
+	}
+}
+
+@media (min-width:1400px) {
+	#header-right{
+		font-size:24px;
+	}
+	#header-logout,#header-mypage{
+		width:105px;
+		padding:0;
+		float:right;
+		text-align:right;
+	}
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.sc.main.dao.RoomDAO">
+	<select id="roomSelect" resultType="com.sc.main.vo.RoomVO">
+		select * from room where roomconcept=#{param1}
+	</select>
+	<select id="roomInfo" resultType="com.sc.main.vo.RoomVO">
+		select * from room where roomno=#{param1}
+	</select>
+	<select id="wishSelect" resultType="com.sc.main.vo.WishlistVO">
+		select * from wishlist where userid=#{param1}
+	</select>
+	<insert id="insertWish">
+		insert into wishlist values(#{userid}, #{roomno})
+	</insert>
+	<delete id="deleteWish">
+		delete from wishlist where userid=#{userid} and roomno=#{roomno}
+	</delete>
+</mapper>

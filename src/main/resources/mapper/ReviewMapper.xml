@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.sc.main.dao.ReviewDAO">
+	<select id="reviewSelect" resultType="com.sc.main.vo.ReviewVO">
+		select * from review 
+		<choose>
+			<when test="searchWord!=null and searchWord!=''">
+				<choose>
+					<when test="searchKey!='total'"><!-- 전체검색이 아닐 때 -->
+						where ${searchKey} like '%${searchWord}%'
+					</when>
+					<otherwise><!-- 전체검색 -->
+						where (subject like '%${searchWord}%'
+						or content like '%${searchWord}%'
+						or roomno like '%${searchWord}%')
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="searchConcept==0">
+					</when>
+					<otherwise>
+						<![CDATA[and roomno > ${searchConcept}-100 and roomno < ${searchConcept}]]>
+					</otherwise>
+				</choose>
+			</when>
+			<otherwise>
+				<choose>
+					<when test="searchConcept==0">
+					</when>
+					<otherwise>
+						<![CDATA[where roomno > ${searchConcept}-100 and roomno < ${searchConcept}]]>
+					</otherwise>
+				</choose>
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="searchHR==null or searchHR==''">
+				order by reviewno desc
+			</when>
+			<when test="searchHR=='hit'">
+				order by hit desc
+			</when>
+			<when test="searchHR=='rating'">
+				order by rating desc
+			</when>
+		</choose>
+
+		 <!-- 
+		<if test="searchHR=rating">
+			order by rating desc
+		</if>
+		order by rating desc -->
+		limit ${onePageRecord} offset ${offset}
+	</select>
+	<select id="reviewDetail" resultType="com.sc.main.vo.ReviewVO">
+		select reviewno, subject, content, userid, reservno,roomno,rating, hit, date_format(writedate, '%Y-%m-%d') writedate from review where reviewno=#{param1}
+	</select>
+	<insert id="reviewInsert">
+		insert into review (userid, reservno, rating, subject, content, roomno) 
+		values (#{userid}, #{reservno}, #{rating}, #{subject}, #{content}, #{roomno})
+	</insert>
+	<insert id="imgInsert">
+		insert into reviewimg (reviewno, filename)
+		values (#{reviewno}, #{filename})
+	</insert>
+	<select id="reviewImage" resultType="int">
+		select reviewno from review where userid=#{param1} order by reviewno desc limit 1
+	</select>
+	<update id="reviewUpdate">
+		update review set subject=#{subject}, content=#{content}, rating=${rating} 
+		where reviewno=${reviewno}
+	</update>
+	<delete id="reviewDelete">
+		delete from review where reviewno=${reviewno}
+	</delete>
+	<select id="reviewTotalRecord" resultType="int">
+		select count(reviewno) cnt from review
+		<choose>
+			<when test="searchWord!=null and searchWord!=''">
+				<choose>
+					<when test="searchKey!='total'"><!-- 전체검색이 아닐 때 -->
+						where ${searchKey} like '%${searchWord}%'
+					</when>
+					<otherwise><!-- 전체검색 -->
+						where (subject like '%${searchWord}%'
+						or content like '%${searchWord}%'
+						or roomno like '%${searchWord}%')
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="searchConcept==0">
+					</when>
+					<otherwise>
+						<![CDATA[and roomno > ${searchConcept}-100 and roomno < ${searchConcept}]]>
+					</otherwise>
+				</choose>
+			</when>
+			<otherwise>
+				<choose>
+					<when test="searchConcept==0">
+					</when>
+					<otherwise>
+						<![CDATA[where roomno > ${searchConcept}-100 and roomno < ${searchConcept}]]>
+					</otherwise>
+				</choose>
+			</otherwise>
+		</choose>
+	</select>
+	<select id="reviewImageSelect" resultType="com.sc.main.vo.ReviewImgVO">
+		select * from reviewimg where reviewno=${reviewno}
+	</select>
+	<update id="reviewImageUpdate">
+		update reviewimg set filename=#{filename} where imgno=${imgno}
+	</update>
+	<delete id="reviewImageDelete">
+		delete from reviewimg where imgno=${imgno}
+	</delete>
+	<update id="reviewHitCount">
+		update review set hit = hit+1 where reviewno=${param1}
+	</update>
+	<select id="reviewHistory" resultType="com.sc.main.vo.ReservationVO">
+		select roomno,reservdate,reservno from reservation where userid=#{param1} and now() > DATE_ADD(reservenddate, INTERVAL 1 DAY)
+		and not reservno = any(select reservno from review where userid=#{param1}) order by reservdate desc;
+	</select>
+	<select id="reviewSelectByUserid" resultType="com.sc.main.vo.ReviewVO">
+        SELECT * FROM review WHERE userid = #{userid}
+    </select>
+</mapper>
